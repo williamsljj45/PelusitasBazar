@@ -1,0 +1,594 @@
+/* =========================================
+   1. RESET Y BASE
+========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+body {
+    background-color: #FFEEF8; /* Rosa pastel ultra tenue */
+    background-image: none; 
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #7a2035; 
+}
+
+#container {
+    width: 98%; 
+    max-width: 100%; 
+    margin: 0 auto; 
+    background-color: transparent; 
+    padding: 0; 
+    box-shadow: none; 
+    border-radius: 0;
+   
+}
+
+/* =========================================
+   2. ENCABEZADO BOUTIQUE
+========================================= */
+.header-moderno {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 5px 0; 
+    border-bottom: none; 
+    margin-bottom: 0px; 
+    
+    /* === LA MAGIA FLOTANTE === */
+    position: sticky;
+    top: 0; /* Se pega exactamente en el borde superior de la pantalla */
+    background-color: #FFEEF8; /* El mismo rosa de tu fondo para tapar lo que pasa por abajo */
+    z-index: 1500; /* Se asegura de flotar por encima del banner y el carrusel */
+}
+
+/* Obliga al logo a ocupar exactamente la misma cantidad de espacio que el carrito */
+.logo-nav {
+    flex: 1;
+}
+
+/* Obliga al carrito a ocupar el mismo espacio que el logo, pero empuja el icono a la orilla derecha */
+.iconos-nav {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.menu-central ul {
+    display: flex;
+    list-style: none;
+    gap: 30px; 
+}
+
+.menu-central a {
+    text-decoration: none;
+    color: #7a2035;
+    font-size: 18px;
+    font-weight: 500;
+    transition: opacity 0.3s;
+}
+
+.menu-central a:hover {
+    opacity: 0.6; 
+}
+
+.img-icono-carrito {
+    width: 58px; /* Ajusta este número si lo quieres más grande o pequeño */
+    height: auto;
+    vertical-align: middle;
+    transition: transform 0.3s ease; /* Pequeña animación */
+}
+
+/* Efecto para que el icono se haga un poquito más grande al pasar el mouse */
+.iconos-nav a:hover .img-icono-carrito {
+    transform: scale(1.1);
+}
+
+
+/* =========================================
+   3. TÍTULOS Y BOTONES GLOBALES
+========================================= */
+.titulo-seccion {
+    color: #7a2035;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    border-bottom: none; 
+}
+
+.btn-comprar {
+    background-color: #7a2035;
+    color: #ffffff;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    width: 100%; 
+    font-size: 14px;
+    font-weight: normal; 
+    transition: opacity 0.3s;
+    border-radius: 4px; 
+}
+
+.btn-comprar:hover {
+    background-color: #7a2035;
+    color: #ffffff;
+    opacity: 0.8; 
+}
+
+.clearfix {
+    clear: both;
+}
+
+/* =========================================
+   4. PRODUCTOS Y CATEGORÍAS (CUADRÍCULA)
+========================================= */
+.productos-grid, .categorias-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start; 
+}
+
+.articulo-producto, .categoria-item {
+    width: calc(25% - 15px); /* 4 elementos por fila */
+    text-align: left; 
+    margin-bottom: 30px;
+    text-decoration: none;
+    color: #7a2035;
+}
+
+.img-producto, .categoria-item img {
+    width: 100%;
+    height: 280px; 
+    object-fit: cover;
+    border-radius: 4px; 
+    margin-bottom: 12px;
+    transition: transform 0.4s ease;
+}
+
+.articulo-producto:hover .img-producto, .categoria-item:hover img {
+    transform: scale(1.03); /* Efecto zoom suave */
+}
+
+.articulo-producto h2, .categoria-item h4 {
+    font-size: 14px;
+    text-transform: none; 
+    font-weight: bold;
+    color: #7a2035;
+    margin-bottom: 4px;
+    letter-spacing: 0;
+}
+
+.precio {
+    font-size: 13px;
+    color: #7a2035;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+/* --- ESTILOS PARA PRENDAS VENDIDAS --- */
+.articulo-producto.vendido .img-producto {
+    opacity: 0.5;
+    filter: grayscale(100%);
+}
+
+.articulo-producto.vendido .precio {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.btn-agotado {
+    background: #eeeeee;
+    color: #888888;
+    border: 1px solid #cccccc;
+    padding: 12px 0;
+    width: 100%; 
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    cursor: not-allowed;
+    border-radius: 4px;
+}
+
+/* =========================================
+   5. CARRUSEL INICIO (DESLIZADOR)
+========================================= */
+.carrusel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.carrusel-contenedor {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap; 
+    width: 100%;
+    padding-bottom: 15px; 
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+    
+    /* MAGIA AQUÍ: Agregamos el efecto imán obligatorio */
+    scroll-snap-type: x mandatory; 
+}
+
+.carrusel-contenedor::-webkit-scrollbar {
+    display: none; 
+}
+
+.carrusel-contenedor .categoria-item {
+    flex: 0 0 calc(25% - 15px); 
+    min-width: 260px; 
+    margin-bottom: 0; 
+    
+    /* MAGIA AQUÍ: Le decimos que el imán atrape el inicio de cada foto */
+    scroll-snap-align: start; 
+}
+
+.btn-carrusel {
+    position: absolute;
+    background-color: #fae8eb;
+    color: #7a2035;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.btn-carrusel:hover {
+    background-color: #7a2035;
+    color: #fff;
+}
+
+.btn-carrusel.prev { left: -10px; }
+.btn-carrusel.next { right: -10px; }
+
+/* =========================================
+   6. CARRITO LATERAL
+========================================= */
+#carrito-lateral {
+    position: fixed;
+    top: 0;
+    right: -400px; 
+    width: 350px;
+    height: 100vh;
+    background-color: #FFEEF8; 
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    z-index: 2000;
+    padding: 40px 20px;
+    transition: right 0.4s ease; 
+    overflow-y: auto;
+}
+
+#carrito-lateral.abierto { right: 0; }
+
+.btn-cerrar-carrito {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #7a2035;
+    cursor: pointer;
+}
+
+.fondo-oscuro {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: 1999;
+    display: none; 
+}
+
+.fondo-oscuro.activo { display: block; }
+
+/* =========================================
+   7. SOSTENIBILIDAD Y FOOTER
+========================================= */
+.sostenibilidad-container {
+    background-color: #FFD9F0; 
+    padding: 60px 40px;
+    text-align: center;
+    margin: 60px 0; 
+    border-radius: 4px;
+}
+
+.sostenibilidad-container h2 {
+    color: #7a2035;
+    font-size: 32px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.sostenibilidad-textos {
+    display: flex;
+    gap: 40px; 
+    text-align: center;
+    color: #7a2035;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.sostenibilidad-textos p { flex: 1; }
+
+.footer-moderno {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 40px 0;
+    border-top: 1px solid #fae8eb; 
+    color: #7a2035;
+    font-size: 12px;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.footer-col { flex: 1; }
+
+.footer-col h4 {
+    font-size: 14px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+/* =========================================
+   8. FORMULARIO DE CONTACTO
+========================================= */
+.formulario-contacto {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 0 auto; 
+}
+
+.formulario-contacto label {
+    margin-top: 20px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.formulario-contacto input, 
+.formulario-contacto textarea {
+    padding: 12px;
+    border: 1px solid #cccccc;
+    font-family: inherit;
+    font-size: 14px;
+    background: transparent;
+}
+
+.formulario-contacto textarea {
+    height: 120px;
+    resize: vertical; 
+}
+
+.formulario-contacto button { margin-top: 30px; }
+
+/* =========================================
+   DISEÑO DE TIENDA (SIDEBAR + GRID)
+========================================= */
+.tienda-layout {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.sidebar-filtros {
+    flex: 0 0 250px;
+    text-align: left;
+}
+
+.sidebar-filtros h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #7a2035;
+    padding-bottom: 10px;
+}
+
+/* --- Mejoras en la Sidebar --- */
+.filtro-seccion {
+    border-top: 1px solid rgba(122, 32, 53, 0.2); /* Línea divisoria sutil */
+    padding-top: 20px;
+    margin-bottom: 25px;
+}
+
+.filtro-seccion h4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #7a2035;
+    margin-bottom: 15px;
+}
+
+/* Decoración de la línea al lado del título */
+.filtro-seccion h4::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: rgba(122, 32, 53, 0.1);
+    margin-left: 10px;
+}
+
+/* Estilo para el Rango de Precio (Slider) */
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    background: #fae8eb;
+    height: 4px;
+    border-radius: 5px;
+    outline: none;
+    margin: 15px 0;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #7a2035;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #FFEEF8;
+}
+
+.precios-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #7a2035;
+    font-weight: bold;
+}
+
+.filtro-seccion ul {
+    list-style: none;
+}
+
+.filtro-seccion li {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+/* Estilos para los enlaces de la barra lateral */
+.filtro-seccion a {
+    text-decoration: none;
+    color: #7a2035;
+    transition: opacity 0.3s;
+}
+
+.filtro-seccion a:hover {
+    opacity: 0.6;
+}
+
+/* Para marcar en qué página estamos (activo) */
+.filtro-seccion a.activo {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* =========================================
+   VENTANA EMERGENTE (QUICK VIEW / MODAL)
+========================================= */
+.modal-producto {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 3000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-contenido {
+    background-color: #FFEEF8;
+    margin: 5% auto;
+    padding: 40px;
+    width: 80%;
+    max-width: 1000px;
+    display: flex;
+    gap: 40px;
+    position: relative;
+    border-radius: 8px;
+}
+
+.modal-imagen {
+    flex: 1;
+}
+
+.modal-imagen img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.modal-info {
+    flex: 1;
+    text-align: left;
+}
+
+.cerrar-modal {
+    position: absolute;
+    top: 20px; right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #7a2035;
+}
+
+.cantidad-selector {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.cantidad-selector input {
+    width: 50px;
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #7a2035;
+}
+
+/* =========================================
+   9. DISEÑO RESPONSIVO (CELULARES Y TABLETS)
+========================================= */
+@media (max-width: 768px) {
+    
+    #container {
+        width: 95%;
+        padding: 0 15px; 
+    }
+    
+    /* Header apilado */
+    .header-moderno {
+        flex-direction: column; 
+        gap: 15px;
+    }
+	
+	/* Centra el carrito en celulares */
+    .iconos-nav {
+        justify-content: center;
+    }
+
+    /* Banner más pequeño */
+    .hero-section img { height: 250px; }
+    
+    /* Productos a 2 columnas en celular */
+    .articulo-producto, .categoria-item {
+        width: calc(50% - 10px); 
+    }
+    
+    /* Ajuste de Carrusel */
+    .carrusel-contenedor .categoria-item {
+        flex: 0 0 75%; 
+        min-width: 220px;
+    }
+    .btn-carrusel {
+        width: 35px; height: 35px; font-size: 14px;
+    }
+    
+    /* Footer y Textos apilados */
+    .sostenibilidad-textos {
+        flex-direction: column; 
+        gap: 20px;
+    }
+    .footer-moderno {
+        flex-direction: column; 
+        text-align: center;
+    }
+}

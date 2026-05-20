@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <meta charset="utf-8" />
+   <title>Contacto - Pelusitas Bazar</title>
+   <link rel="stylesheet" href="estilos.css" />
+  </head>
+  
+  <body>
+	  
+	<div id="container">
+
+     <header class="header-moderno">
+        
+        <div class="logo-nav">
+          <a href="index.html" style="text-decoration: none; color: #7a2035; font-size: 28px; font-weight: bold; font-family: 'Playfair Display', serif;">
+            Pelusitas Bazar
+          </a>
+        </div>
+        
+        <nav class="menu-central">
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="vestidos.html">Tienda</a></li>
+        
+          </ul>
+        </nav>
+        
+       <div class="iconos-nav">
+          <a href="javascript:void(0)" onclick="abrirCarrito()">
+          <img src="img/icono-carrito.png" alt="Carrito de compras" class="img-icono-carrito">
+          </a>
+        </div>
+        
+      </header>
+		
+      <div class="clearfix"></div>
+      
+    <section id="content">
+         <h2 style="text-align: center; margin-bottom: 30px; text-transform: uppercase; font-size: 20px;">Envíanos un mensaje</h2>
+         
+         <form class="formulario-contacto">
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" placeholder="Ej. Juan">
+
+            <label for="correo">Correo electrónico</label>
+            <input type="email" id="correo" placeholder="tu@correo.com">
+
+            <label for="mensaje">Tu mensaje</label>
+            <textarea id="mensaje" placeholder="¿En qué te podemos ayudar?"></textarea>
+
+            <button type="submit" class="btn-comprar">Enviar Mensaje</button>
+         </form>
+     </section>
+   <div class="sostenibilidad-container">
+        <h2>Ropa única, amorosa y asequible</h2>
+        <div class="sostenibilidad-textos">
+          <p>En Pelusitas Bazar creemos que la moda de segunda mano no es solo una tendencia, sino una elección consciente. Seleccionamos cada prenda con el cuidado de una pieza única, asegurando que cada mujer encuentre lo que mejor se adapte a su estilo y a su compromiso con el planeta.</p>
+          <p>Nuestro servicio es el corazón de nuestra experiencia. Ofrecemos una atención personalizada y una confianza absoluta en cada consulta, transformando el proceso de compra en una experiencia de exclusividad y calidez.</p>
+        </div>
+      </div>
+
+      <footer class="footer-moderno">
+        
+        <div class="footer-col" style="font-size: 18px; font-weight: bold; font-family: 'Playfair Display', serif;">
+          Pelusitas Bazar
+        </div>
+        
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <p>Tijuana, B.C.</p>
+          <p>hola@pelusitasbazar.com</p>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Nuestra Esencia</h4>
+          <p>Ropa única, amorosa y asequible.<br>Descubre la belleza en cada prenda de segunda mano.</p>
+        </div>
+        
+        <div class="footer-col" style="text-align: right;">
+          <p>&copy; 2026 Pelusitas Bazar.<br>Todos los derechos reservados.<br></p>
+        </div>
+        
+      </footer>
+
+      <a id="btn-whatsapp" href="#" target="_blank" style="display:none; position:fixed; bottom:30px; right:30px; background:#25D366; color:white; padding:15px 25px; text-decoration:none; border-radius:50px; font-weight:bold; font-family:Arial; box-shadow: 0px 4px 10px rgba(0,0,0,0.2); transition: transform 0.3s;">
+        🛒 Pagar Pedido
+      </a>
+	
+    </div>
+	  
+	  <script>
+      // 1. En lugar de empezar en 0, leemos la "libreta" (localStorage). 
+      // JSON.parse traduce el texto guardado de vuelta a código que la página entienda.
+      let carrito = JSON.parse(localStorage.getItem('miCarritoAW')) || [];
+      let total = parseFloat(localStorage.getItem('miTotalAW')) || 0;
+      
+      let miNumeroDeWhatsApp = "526641811247"; 
+
+      // 2. Esta función arranca solita cada vez que abres CUALQUIER página
+      function inicializarPagina() {
+          actualizarCarritoVisual();
+          if(carrito.length > 0) {
+              prepararWhatsApp(); // Si hay algo en la memoria, mostramos el botón
+          }
+      }
+
+      function agregarAlCarrito(nombrePrenda, precioPrenda) {
+          carrito.push({ nombre: nombrePrenda, precio: precioPrenda });
+          total = total + precioPrenda;
+
+          // GUARDAR EN LA MEMORIA (Anotamos en la libreta)
+          localStorage.setItem('miCarritoAW', JSON.stringify(carrito));
+          localStorage.setItem('miTotalAW', total);
+
+          actualizarCarritoVisual();
+          prepararWhatsApp();
+		  
+		  abrirCarrito();
+      }
+
+      function actualizarCarritoVisual() {
+          let listaHTML = document.getElementById("lista-carrito");
+          let totalHTML = document.getElementById("total-carrito");
+
+          if (!listaHTML || !totalHTML) return; // Evita errores si la barra lateral no ha cargado
+
+          listaHTML.innerHTML = "";
+
+          if (carrito.length === 0) {
+              listaHTML.innerHTML = "<li>El carrito está vacío</li>";
+          } else {
+              for (let i = 0; i < carrito.length; i++) {
+                  let item = carrito[i];
+                  listaHTML.innerHTML += "<li style='display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px dashed #c97a8e; padding-bottom: 4px;'>" + 
+                                         "<span>" + item.nombre + "</span>" + 
+                                         "<span>$" + item.precio + "</span>" + 
+                                         "</li>";
+              }
+          }
+          totalHTML.innerText = total;
+      }
+
+      function vaciarCarrito() {
+          carrito = [];
+          total = 0;
+
+          // BORRAMOS LA MEMORIA
+          localStorage.removeItem('miCarritoAW');
+          localStorage.removeItem('miTotalAW');
+
+          actualizarCarritoVisual();
+          document.getElementById("btn-whatsapp").style.display = "none";
+      }
+
+      function prepararWhatsApp() {
+          let textoMensaje = "Hola Pelusitas Bazar, me gustaría pedir lo siguiente:\n\n";
+          for (let i = 0; i < carrito.length; i++) {
+              let item = carrito[i];
+              textoMensaje += "- " + item.nombre + " ($" + item.precio + ")\n";
+          }
+          textoMensaje += "\n*Total estimado: $" + total + " MXN*";
+
+          let textoCodificado = encodeURIComponent(textoMensaje);
+          let enlaceFinal = "https://wa.me/" + miNumeroDeWhatsApp + "?text=" + textoCodificado;
+
+          let botonWpp = document.getElementById("btn-whatsapp");
+          if(botonWpp) {
+              botonWpp.href = enlaceFinal;
+              botonWpp.style.display = "block";
+          }
+      } /* <-- Faltaba esta llave para cerrar prepararWhatsApp */
+          
+      function abrirCarrito() {
+          document.getElementById("carrito-lateral").classList.add("abierto");
+          document.getElementById("fondo-oscuro").classList.add("activo");
+      }
+
+      function cerrarCarrito() {
+          document.getElementById("carrito-lateral").classList.remove("abierto");
+          document.getElementById("fondo-oscuro").classList.remove("activo");
+      }
+
+      // Ejecutamos la función de arranque justo cuando carga el script
+      inicializarPagina();
+    </script>
+	  
+	  <div id="fondo-oscuro" class="fondo-oscuro" onclick="cerrarCarrito()"></div>
+
+    <div id="carrito-lateral">
+      <button class="btn-cerrar-carrito" onclick="cerrarCarrito()">✖</button>
+      <h2 style="font-size: 24px; margin-bottom: 20px; color: #7a2035; text-align: center; font-weight: bold;">Tu Carrito</h2>
+      
+      <ul id="lista-carrito" style="list-style: none; margin: 0 auto 20px auto; text-align: left; font-size: 14px; color: #7a2035;">
+        <li>El carrito está vacío</li>
+      </ul>
+      
+      <p style="font-size: 18px; margin-bottom: 20px; color: #7a2035; text-align: center;">
+        <strong>Total: $<span id="total-carrito">0</span> MXN</strong>
+      </p>
+
+      <button onclick="vaciarCarrito()" style="background: transparent; border: 1px solid #7a2035; color: #7a2035; padding: 10px 20px; cursor: pointer; text-transform: uppercase; font-size: 12px; font-weight: bold; width: 100%;">
+        Vaciar Carrito
+      </button>
+    </div>
+	  
+  </body>
+</html>

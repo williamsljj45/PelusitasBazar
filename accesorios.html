@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Accesorios - Pelusitas Bazar</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <div id="container">
+        <header class="header-moderno">
+            <div class="logo-nav"><a href="index.html" style="text-decoration: none; color: #7a2035; font-size: 28px; font-weight: bold; font-family: 'Playfair Display', serif;">Pelusitas Bazar</a></div>
+            <nav class="menu-central">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="vestidos.html" style="text-decoration: underline;">Tienda</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="iconos-nav">
+                <a href="javascript:void(0)" onclick="abrirCarrito()"><img src="img/icono-carrito.png" alt="Carrito" class="img-icono-carrito"></a>
+            </div>
+        </header>
+
+        <div style="padding: 20px 0; text-align: left;">
+            <p style="font-size: 14px; color: #7a2035; margin-bottom: 20px;">Inicio &gt; Accesorios</p>
+            <div style="width: 100%; height: 250px; overflow: hidden; border-radius: 8px; margin-bottom: 30px;">
+                <img src="img/Banner accesorios.png" alt="Colección Accesorios" style="width: 100%; height: 130%; object-fit: cover;">
+            </div>
+            <h1 style="color: #7a2035; font-family: 'Playfair Display'; font-size: 36px; font-weight: bold; margin-bottom: 10px;">Accesorios</h1>
+        </div>
+
+        <div class="tienda-layout">
+            <aside class="sidebar-filtros">
+                <div class="filtro-seccion" style="border-top: none;">
+                    <h4>Explorar por</h4>
+                    <ul>
+                        <li><a href="tienda.html">Todos los productos</a></li>
+                        <li><a href="accesorios.html" class="activo">Accesorios</a></li>
+                        <li><a href="blusas.html">Blusas</a></li>
+                        <li><a href="chamarras.html">Chamarras</a></li>
+                        <li><a href="pantalones.html">Pantalones</a></li>
+                        <li><a href="vestidos.html">Vestidos</a></li>
+                    </ul>
+                </div>
+                <div class="filtro-seccion">
+                    <h4>Tipo de producto</h4>
+                    <label><input type="checkbox" class="filtro-cat" value="Accesorios" onchange="aplicarFiltros()"> Accesorios</label><br>
+                    <label><input type="checkbox" class="filtro-cat" value="Ropa" onchange="aplicarFiltros()"> Ropa</label>
+                </div>
+                <div class="filtro-seccion">
+                    <h4>Precio</h4>
+                    <input type="range" id="rangoPrecio" min="0" max="600" value="600" oninput="aplicarFiltros()">
+                    <div class="precios-label"><span>$0 MXN</span><span id="valorPrecio">$600 MXN</span></div>
+                </div>
+            </aside>
+
+            <main style="flex: 1;">
+                <div class="productos-grid" id="grid-productos">
+                    <article class="articulo-producto" data-categoria="Accesorios" data-precio="100" onclick="verDetalle('Cinturon rosa', 100.00, 'img/Cintorosa1.JPG', 'Hermoso cinto de segunda mano, perfecto para darle un toque especial a tu atuendo.')">
+                        <img src="img/Cintorosa1.JPG" class="img-producto" alt="Collar">
+                        <h2>Cinturon rosa</h2>
+                        <p class="precio">$100.00 MXN</p>
+                    </article>
+
+                    <article class="articulo-producto" data-categoria="Accesorios" data-precio="500" onclick="verDetalle('Cinturon transparente', 100.00, 'img/Cintotransparente.jpg', 'Cinto en excelentes condiciones y con un diseño muy combinable.')">
+                        <img src="img/Cintotransparente.jpg" class="img-producto" alt="Cinto">
+                      <h2>Cinturon transparente&nbsp;</h2>
+                        <p class="precio">$100.00 MXN</p>
+                    </article>
+                </div>
+            </main>
+        </div>
+
+        <footer class="footer-moderno">
+            <div class="footer-col" style="font-size: 18px; font-weight: bold; font-family: 'Playfair Display', serif;">Pelusitas Bazar</div>
+            <div class="footer-col"><h4>Contacto</h4><p>Tijuana, B.C.</p><p>hola@pelusitasbazar.com</p></div>
+            <div class="footer-col"><h4>Nuestra Esencia</h4><p>Ropa única, amorosa y asequible.</p></div>
+            <div class="footer-col" style="text-align: right;"><p>&copy; 2026 Pelusitas Bazar.<br>
+            Todos los derechos reservados.<br></p></div>
+        </footer>
+    </div>
+
+    <div id="modalProducto" class="modal-producto">
+        <div class="modal-contenido">
+            <span class="cerrar-modal" onclick="cerrarModal()">&times;</span>
+            <div class="modal-imagen"><img id="imgModal" src="#" alt="Vista previa"></div>
+            <div class="modal-info">
+                <h2 id="tituloModal" style="font-family: 'Playfair Display'; color: #7a2035;"></h2>
+                <p id="precioModal" style="font-size: 20px; color: #7a2035; margin: 10px 0;"></p>
+                <div class="cantidad-selector"><span>Cantidad *</span><input type="number" value="1" min="1"></div>
+                <button class="btn-comprar" id="btnAgregarModal" style="margin-bottom: 10px;">Agregar al carrito</button>
+                <button class="btn-comprar" style="background-color: #4b1220;" onclick="cerrarModal(); abrirCarrito();">Ver mi carrito</button>
+                <p id="descModal" style="font-size: 14px; margin-top: 20px; color: #666;"></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="fondo-oscuro" class="fondo-oscuro" onclick="cerrarCarrito()"></div>
+    <div id="carrito-lateral">
+        <button class="btn-cerrar-carrito" onclick="cerrarCarrito()">✖</button>
+        <h2 style="font-size: 24px; margin-bottom: 20px; color: #7a2035; text-align: center; font-weight: bold;">Tu Carrito</h2>
+        <ul id="lista-carrito" style="list-style: none; margin: 0 auto 20px auto; text-align: left; font-size: 14px; color: #7a2035;"></ul>
+        <p style="font-size: 18px; margin-bottom: 20px; color: #7a2035; text-align: center;"><strong>Total: $<span id="total-carrito">0</span> MXN</strong></p>
+        <button onclick="vaciarCarrito()" style="background: transparent; border: 1px solid #7a2035; color: #7a2035; padding: 10px 20px; cursor: pointer; text-transform: uppercase; font-size: 12px; font-weight: bold; width: 100%;">Vaciar Carrito</button>
+    </div>
+    <a id="btn-whatsapp" href="#" target="_blank" style="display:none; position:fixed; bottom:30px; right:30px; background:#25D366; color:white; padding:15px 25px; text-decoration:none; border-radius:50px; font-weight:bold; font-family:Arial; box-shadow: 0px 4px 10px rgba(0,0,0,0.2); transition: transform 0.3s; z-index: 1000;">🛒 Pagar Pedido</a>
+
+    <script>
+        function aplicarFiltros() {
+            let slider = document.getElementById("rangoPrecio");
+            let valorPrecioLabel = document.getElementById("valorPrecio");
+            let maxPrecio = parseFloat(slider.value);
+            valorPrecioLabel.innerText = "$" + maxPrecio + " MXN";
+            let checkboxes = document.querySelectorAll(".filtro-cat:checked");
+            let categoriasSeleccionadas = Array.from(checkboxes).map(cb => cb.value);
+            let productos = document.querySelectorAll(".articulo-producto");
+            productos.forEach(prod => {
+                let precioProd = parseFloat(prod.getAttribute("data-precio")) || 0;
+                let catProd = prod.getAttribute("data-categoria");
+                if ((precioProd <= maxPrecio) && (categoriasSeleccionadas.length === 0 || categoriasSeleccionadas.includes(catProd))) { prod.style.display = "block"; } 
+                else { prod.style.display = "none"; }
+            });
+        }
+
+        let carrito = JSON.parse(localStorage.getItem('miCarritoAW')) || [];
+        let total = parseFloat(localStorage.getItem('miTotalAW')) || 0;
+        let miNumeroDeWhatsApp = "526641811247";
+
+        function verDetalle(nombre, precio, imagen, descripcion) {
+            document.getElementById("tituloModal").innerText = nombre;
+            document.getElementById("precioModal").innerText = "$" + precio + " MXN";
+            document.getElementById("imgModal").src = imagen;
+            document.getElementById("descModal").innerText = descripcion;
+            document.getElementById("btnAgregarModal").onclick = function() { agregarAlCarrito(nombre, precio); cerrarModal(); };
+            document.getElementById("modalProducto").style.display = "block";
+        }
+        function cerrarModal() { document.getElementById("modalProducto").style.display = "none"; }
+        function inicializarPagina() { actualizarCarritoVisual(); if(carrito.length > 0) { prepararWhatsApp(); } }
+        function agregarAlCarrito(nombre, precio) { carrito.push({ nombre, precio }); total += precio; localStorage.setItem('miCarritoAW', JSON.stringify(carrito)); localStorage.setItem('miTotalAW', total); actualizarCarritoVisual(); prepararWhatsApp(); abrirCarrito(); }
+        function actualizarCarritoVisual() {
+            let lista = document.getElementById("lista-carrito");
+            if (!lista) return; lista.innerHTML = carrito.length === 0 ? "<li>El carrito está vacío</li>" : "";
+            for (let i = 0; i < carrito.length; i++) { lista.innerHTML += "<li style='display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px dashed #c97a8e; padding-bottom: 4px;'><span>" + carrito[i].nombre + "</span><span>$" + carrito[i].precio + "</span></li>"; }
+            document.getElementById("total-carrito").innerText = total;
+        }
+        function vaciarCarrito() { carrito = []; total = 0; localStorage.removeItem('miCarritoAW'); localStorage.removeItem('miTotalAW'); actualizarCarritoVisual(); document.getElementById("btn-whatsapp").style.display = "none"; }
+        function prepararWhatsApp() {
+            let msg = "Hola Pelusitas Bazar, me gustaría pedir lo siguiente:\n\n";
+            for (let i = 0; i < carrito.length; i++) { msg += "- " + carrito[i].nombre + " ($" + carrito[i].precio + ")\n"; }
+            msg += "\n*Total estimado: $" + total + " MXN*";
+            let btn = document.getElementById("btn-whatsapp"); if(btn) { btn.href = "https://wa.me/" + miNumeroDeWhatsApp + "?text=" + encodeURIComponent(msg); btn.style.display = "block"; }
+        }
+        function abrirCarrito() { document.getElementById("carrito-lateral").classList.add("abierto"); document.getElementById("fondo-oscuro").classList.add("activo"); }
+        function cerrarCarrito() { document.getElementById("carrito-lateral").classList.remove("abierto"); document.getElementById("fondo-oscuro").classList.remove("activo"); }
+        inicializarPagina();
+    </script>
+</body>
+</html>
